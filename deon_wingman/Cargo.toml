@@ -1,0 +1,16 @@
+[package]
+name = "deon_wingman"
+description = "Deonym's implementation of the Wingman server"
+version = "0.1.0"
+homepage = "https://deonym.org"
+license = "GPL-3.0-only"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+log = "0.4"
+pretty_env_logger = "0.3"
+
+deonym = { path = "../deonym" }
+rsa = "0.5.0"

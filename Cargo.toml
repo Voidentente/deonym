@@ -1,0 +1,23 @@
+[profile.release]
+lto = true
+panic = "abort"
+overflow-checks = true
+
+[workspace]
+
+members = [
+    "deonym",
+    "deon_wingman",
+    "deon_client",
+    "deon_service",
+    "deon_key_tool",
+    "deon_nym_address_tool",
+]
+
+default-members = [
+    "deon_wingman",
+    "deon_client",
+    "deon_service",
+    "deon_key_tool",
+    "deon_nym_address_tool",
+]

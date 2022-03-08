@@ -1,0 +1,13 @@
+[package]
+name = "deon_key_tool"
+description = "A simple tool to generate RSA keypairs for Deon services"
+version = "0.1.0"
+homepage = "https://deonym.org"
+license = "GPL-3.0-only"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rsa = "0.5.0"
+rand = "0.8.4"

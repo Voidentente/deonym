@@ -1,0 +1,12 @@
+[package]
+name = "deon_nym_address_tool"
+description = "A simple tool that prints the decoded address of the connected Nym client"
+version = "0.1.0"
+homepage = "https://deonym.org"
+license = "GPL-3.0-only"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+deonym = { path = "../deonym" }
