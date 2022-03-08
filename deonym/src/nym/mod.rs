@@ -5,6 +5,7 @@
  */
 
 mod client;
+mod error;
 mod requests;
 mod responses;
 

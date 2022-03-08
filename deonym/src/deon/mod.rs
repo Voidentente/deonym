@@ -3,6 +3,7 @@
  *  Currently only for serialization/deserialization.
  */
 
+mod error;
 mod requests;
 mod responses;
 
