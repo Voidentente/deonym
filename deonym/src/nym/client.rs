@@ -18,9 +18,9 @@ impl NymClient {
         Ok(self.socket.read_message()?.into_data())
     }
     pub fn send_message(&mut self, msg: Vec<u8>) -> Result<(), tungstenite::Error> {
-        Ok(self.socket.write_message(Message::Binary(msg))?)
+        self.socket.write_message(Message::Binary(msg))
     }
     pub fn close(mut self) -> Result<(), tungstenite::Error> {
-        Ok(self.socket.close(None)?)
+        self.socket.close(None)
     }
 }

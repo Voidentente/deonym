@@ -53,7 +53,7 @@ impl ServerResponse {
             vec.append(&mut inner);
         }
 
-        return vec;
+        vec
     }
     /// Serialize the response for transport over network
     pub fn serialize(self) -> Vec<u8> {
@@ -66,7 +66,7 @@ impl ServerResponse {
     /// b: Binary data to deserialize
     fn deserialize_put(b: &[u8]) -> Result<Self, DeonError> {
         if b.len() < 1 + 2 * std::mem::size_of::<u64>() {
-            return Err(DeonError::MalformedError(format!(
+            return Err(DeonError::Malformed(format!(
                 "Expected at least {} bytes, got {}",
                 1 + 2 * std::mem::size_of::<u64>(),
                 b.len()
@@ -81,7 +81,7 @@ impl ServerResponse {
                 .unwrap(),
         );
         if payload_len_bytes > (b.len() - 1 - 2 * std::mem::size_of::<u64>()) as u64 {
-            return Err(DeonError::MalformedError(format!(
+            return Err(DeonError::Malformed(format!(
                 "Expected at most {} bytes for payload, got {}",
                 b.len() - 1 - 2 * std::mem::size_of::<u64>(),
                 payload_len_bytes
@@ -97,7 +97,7 @@ impl ServerResponse {
                 .unwrap(),
         );
         if surb_len_bytes > (b.len() - payload_bound - std::mem::size_of::<u64>()) as u64 {
-            return Err(DeonError::MalformedError(format!(
+            return Err(DeonError::Malformed(format!(
                 "Expected at most {} bytes for SURB, got {}",
                 b.len() - payload_bound - std::mem::size_of::<u64>(),
                 surb_len_bytes
@@ -121,7 +121,7 @@ impl ServerResponse {
     /// b: Binary data to deserialize
     fn deserialize_pop(b: &[u8]) -> Result<Self, DeonError> {
         if b.len() < 97 + std::mem::size_of::<u64>() {
-            return Err(DeonError::MalformedError(format!(
+            return Err(DeonError::Malformed(format!(
                 "Expected at least {} bytes, got {}",
                 97 + std::mem::size_of::<u64>(),
                 b.len()
@@ -152,7 +152,7 @@ impl ServerResponse {
             if block_len_bytes
                 > (b.len() - ptr - (block_size - i) * std::mem::size_of::<u64>()) as u64
             {
-                return Err(DeonError::MalformedError(format!(
+                return Err(DeonError::Malformed(format!(
                     "Expected at most {} bytes for block size, got {}",
                     b.len() - ptr - (block_size - i) * std::mem::size_of::<u64>(),
                     block_len_bytes
@@ -172,18 +172,16 @@ impl ServerResponse {
     }
     /// Deserialize the response for use in program
     pub fn deserialize(b: &[u8]) -> Result<Self, DeonError> {
-        if b.len() < 1 {
-            return Err(DeonError::MalformedError(format!(
-                "Expected at least {} byte, got {}",
-                1,
-                b.len()
-            )));
+        if b.is_empty() {
+            return Err(DeonError::Malformed(
+                "Can't deserialize an empty array".to_string(),
+            ));
         }
 
         match b[0] {
             PUT_RESPONSE_TAG => Ok(Self::deserialize_put(b)?),
             POP_RESPONSE_TAG => Ok(Self::deserialize_pop(b)?),
-            _ => Err(DeonError::MalformedError(format!(
+            _ => Err(DeonError::Malformed(format!(
                 "Expected tag {} or {}, got {}",
                 PUT_RESPONSE_TAG, POP_RESPONSE_TAG, b[0]
             ))),

@@ -33,12 +33,9 @@ fn main() {
     let mut succeeding_err_ctr: u8 = 0;
 
     let self_address_req = nym::ClientRequest::SelfAddress.serialize();
-    match client.send_message(self_address_req) {
-        Err(e) => {
-            error!("Failed to self-address, terminating: {}", e);
-            panic!("SELF_ADDRESS_ERR");
-        }
-        Ok(_) => {}
+    if let Err(e) = client.send_message(self_address_req) {
+        error!("Failed to self-address, terminating: {}", e);
+        panic!("SELF_ADDRESS_ERR");
     }
 
     info!("Entering main handler");

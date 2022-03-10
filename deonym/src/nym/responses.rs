@@ -122,9 +122,9 @@ impl ServerResponse {
         match b[0] {
             RECEIVED_RESPONSE_TAG => Self::deserialize_received(b),
             SELF_ADDRESS_RESPONSE_TAG => Self::deserialize_self_address(b),
-            ERROR_RESPONSE_TAG => Err(NymError::ErrorResponse(format!(
-                "Received Nym client error"
-            ))),
+            ERROR_RESPONSE_TAG => Err(NymError::ErrorResponse(
+                "Received Nym client error".to_string(),
+            )),
             _ => Err(NymError::MalformedError(format!(
                 "Expected tag {} or {} or {}, got {}",
                 RECEIVED_RESPONSE_TAG, SELF_ADDRESS_RESPONSE_TAG, ERROR_RESPONSE_TAG, b[0]

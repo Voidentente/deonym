@@ -1,25 +1,25 @@
 use std::fmt;
 
 pub enum DeonError {
-    RsaCryptoError(String),
-    RsaPkcs8Error(String),
-    MissingSkError(String),
-    MalformedError(String),
+    RsaCrypto(String),
+    RsaPkcs8(String),
+    NoSecretKey(String),
+    Malformed(String),
 }
 
 impl fmt::Debug for DeonError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            DeonError::RsaCryptoError(e) => {
+            DeonError::RsaCrypto(e) => {
                 write!(f, "{}", e)
             }
-            DeonError::RsaPkcs8Error(e) => {
+            DeonError::RsaPkcs8(e) => {
                 write!(f, "{}", e)
             }
-            DeonError::MissingSkError(e) => {
+            DeonError::NoSecretKey(e) => {
                 write!(f, "{}", e)
             }
-            DeonError::MalformedError(e) => {
+            DeonError::Malformed(e) => {
                 write!(f, "{}", e)
             }
         }
@@ -29,16 +29,16 @@ impl fmt::Debug for DeonError {
 impl fmt::Display for DeonError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            DeonError::RsaCryptoError(e) => {
+            DeonError::RsaCrypto(e) => {
                 write!(f, "{}", e)
             }
-            DeonError::RsaPkcs8Error(e) => {
+            DeonError::RsaPkcs8(e) => {
                 write!(f, "{}", e)
             }
-            DeonError::MissingSkError(e) => {
+            DeonError::NoSecretKey(e) => {
                 write!(f, "{}", e)
             }
-            DeonError::MalformedError(e) => {
+            DeonError::Malformed(e) => {
                 write!(f, "{}", e)
             }
         }
