@@ -27,7 +27,7 @@ const MAX_SUCCEEDING_ERR: u8 = 8;
 /// Usually, you want to seed on 2 to 4 Wingmen at a time and not
 /// change them too often. Here, we only seed on one Wingman.
 /// TODO: Change this to a more flexible approach.
-const SEED_1: [u8; 96] = [
+const WINGMAN_1: [u8; 96] = [
     179, 67, 68, 104, 99, 156, 154, 109, 50, 63, 106, 34, 184, 160, 44, 59, 232, 178, 185, 26, 234,
     133, 141, 243, 163, 107, 147, 128, 78, 181, 149, 68, 211, 13, 86, 99, 103, 165, 176, 4, 227,
     39, 65, 237, 13, 92, 101, 122, 32, 230, 75, 174, 30, 29, 134, 255, 202, 127, 136, 235, 230,
@@ -77,12 +77,12 @@ fn main() {
     let seed_1_deon_req = deon::ClientRequest::Pop {
         public_key: public_key.clone(),
         secret_key: Some(secret_key.clone()),
-        wingman: SEED_1.to_vec(),
+        wingman: WINGMAN_1.to_vec(),
     }
     .serialize()
     .unwrap();
     let seed_1_nym_req = nym::ClientRequest::Send {
-        recipient: SEED_1.to_vec(),
+        recipient: WINGMAN_1.to_vec(),
         data: seed_1_deon_req,
         with_reply_surb: true,
     }
