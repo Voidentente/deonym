@@ -17,7 +17,7 @@ const GARBAGE_COLLECT_FREQ: u16 = 500;
 /// so we no longer accept incoming Puts and can remove the entry
 const DURATION_UNTIL_ABANDONED: Duration = Duration::from_secs(10);
 
-/// This constant limits how many errors in one row can occur
+/// This constant limits how many errors in a row can occur
 /// when trying to read from socket before the program is terminated
 const MAX_SUCCEEDING_ERR: u8 = 8;
 
@@ -53,7 +53,7 @@ fn main() {
     }
 
     loop {
-        // This may happen when the Nym client unexpectedly shuts down for example
+        // This may happen when e.g. the Nym client unexpectedly shuts down
         if succeeding_err_ctr >= MAX_SUCCEEDING_ERR {
             error!("Terminating: Too many errors");
             panic!();
